@@ -3,11 +3,18 @@
 
 #include <stdio.h>
 
+typedef struct {
+    int rows;
+    int cols;
+    float** matriz;
+} Matriz;
+
+
 float** buildMatriz(void);
-void loadMatriz(FILE *file, float **matriz, int*rows, int*cols);
-void printMatriz(float **matriz, int*rows, int*cols);
-void multEscalarMatriz(float **matriz, int*rows, int*cols, float*escalar);
-void multMatrizes(float**m1,int*r1,int*c1,float**m2,int*r2,int*c2,float**res,int*rres,int*cres);
+void loadMatriz(FILE *file, Matriz *m);
+void printMatriz(Matriz *m);
+void multEscalarMatriz(Matriz *m, float *num);
+void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
 
 #include "matriz.c"
 #endif 
