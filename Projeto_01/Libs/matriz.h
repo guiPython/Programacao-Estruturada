@@ -3,9 +3,10 @@
 
 #include <stdio.h>
 
-int** buildMatriz(void);
-void readMatriz(FILE *file, int **matriz, int*rows, int*cols);
-void printMatriz(int **matriz, int*rows, int*cols);
+float** buildMatriz(void);
+void readMatriz(FILE *file, float **matriz, int*rows, int*cols);
+void printMatriz(float **matriz, int*rows, int*cols);
+void multEscalarMatriz(float **matriz, int*rows , int*cols , float*esc);
 
 #include "matriz.c"
 #endif 
