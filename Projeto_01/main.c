@@ -12,6 +12,7 @@ int main(void) {
     FILE *file2 = getArquivo("teste2.csv");
 
     // Execucao de Funcoes
+    printf("\n");
     loadMatriz(file, &m1);
     printf("Matriz I %d X %d ", m1.rows, m1.cols);
     printf("\n");
@@ -27,6 +28,31 @@ int main(void) {
     printf("Matriz I x Matriz II");
     printf("\n");
     multMatrizes(&m1,&m2,&res);
+    printMatriz(&res);
+
+    printf("\n");
+    float num;
+    printf("Digite um Escalar: ");
+    scanf("%f",&num);
+    printf("\n");
+    printf("Matriz I x Matriz II + %.2f",num);
+    printf("\n");
+    opEscalarMatriz(&res,&num,"soma");
+    printMatriz(&res);
+    printf("\n");
+    printf("Matriz I x Matriz II - %.2f",num);
+    printf("\n");
+    opEscalarMatriz(&res,&num,"subtr");
+    printMatriz(&res);
+    printf("\n");
+    printf("Matriz I x Matriz II x %.2f",num);
+    printf("\n");
+    opEscalarMatriz(&res,&num,"mult");
+    printMatriz(&res);
+    printf("\n");
+    printf("Matriz I x Matriz II / %.2f",num);
+    printf("\n");
+    opEscalarMatriz(&res,&num,"divs");
     printMatriz(&res);
 
     for (int i = 0; i < MAX_COLS; i++)

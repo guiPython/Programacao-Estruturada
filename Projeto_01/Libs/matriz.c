@@ -42,23 +42,29 @@ void printMatriz(Matriz *m) {
     }
 }
 
-void multEscalarMatriz(Matriz *m,float *num){
+void opEscalarMatriz(Matriz *m,float *num,char* op){
     for (int i = 0; i < (*m).rows; i++) {
         for (int j = 0; j < (*m).cols; j++) {
-            (*m).matriz[i][j] *= (*num);
+            if( op == "mult" ){ (*m).matriz[i][j] *= (*num); }
+            else if ( op == "soma"  ){ (*m).matriz[i][j] += (*num); }
+            else if ( op == "subtr" ){ (*m).matriz[i][j] -= (*num); }
+            else if ( op == "divs"  ){ (*m).matriz[i][j] /= (*num); }
+            else printf("Operecao nao definida.");
         }
     }
 }
 
 void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res){
-
     if ( (*m1).cols != (*m2).rows ){
         printf("\nNão é realizar a operção, Numero de colunas de M1 != Numero de linhas de M2.");
     }
     else{
-        for ( int i = 0 ; i < (*m1).cols ; i++){
-            for ( int j = 0; j < (*m1).cols; j++){
-                (*res).matriz[i][j] = (*m1).matriz[i][j] * (*m2).matriz[j][i];
+        float val;
+        for ( int i = 0 ; i < (*m1).rows ; i++){
+            for ( int j = 0; j < (*m2).cols; j++){
+                val = 0;
+                for ( int k = 0 ; k < (*m1).cols ; k++) val += ((*m1).matriz[i][k]) * ((*m2).matriz[k][j]);
+                (*res).matriz[i][j] = val;
             }
         }
         (*res).rows = (*m1).rows ; (*res).cols = (*m2).cols;
