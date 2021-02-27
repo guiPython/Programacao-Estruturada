@@ -42,13 +42,13 @@ void printMatriz(Matriz *m) {
     }
 }
 
-void opEscalarMatriz(Matriz *m,float *num,char* op){
+void opEscalarMatriz(Matriz *m,float *num,char op){
     for (int i = 0; i < (*m).rows; i++) {
         for (int j = 0; j < (*m).cols; j++) {
-            if( op == "mult" ){ (*m).matriz[i][j] *= (*num); }
-            else if ( op == "soma"  ){ (*m).matriz[i][j] += (*num); }
-            else if ( op == "subtr" ){ (*m).matriz[i][j] -= (*num); }
-            else if ( op == "divs"  ){ (*m).matriz[i][j] /= (*num); }
+            if( op == '*' ){ (*m).matriz[i][j] *= (*num); }
+            else if ( op == '+'  ){ (*m).matriz[i][j] += (*num); }
+            else if ( op == '-' ){ (*m).matriz[i][j] -= (*num); }
+            else if ( op == '/'  ){ (*m).matriz[i][j] /= (*num); }
             else printf("Operecao nao definida.");
         }
     }
