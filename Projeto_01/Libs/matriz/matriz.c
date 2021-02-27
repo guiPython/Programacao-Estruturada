@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include "../csv/csv.h"
 
 #define MAX_COLS 15
 #define MAX_ROWS 15
 
 
-float** buildMatriz() {
+static float** buildMatriz() {
     float** matriz;
     matriz = (float**)malloc(MAX_ROWS * sizeof(float));
     for (int i = 0; i < MAX_ROWS; ++i) {
@@ -16,7 +17,7 @@ float** buildMatriz() {
 }
 
 
-void loadMatriz(FILE* arq, Matriz *m) {
+static void loadMatriz(FILE* arq, Matriz *m) {
     int i = 0;
     char* token;
     char line[1024];
@@ -32,6 +33,31 @@ void loadMatriz(FILE* arq, Matriz *m) {
     fclose(arq);
 }
 
+Matriz prepMatriz(char *filePath){
+    Matriz m; m.matriz = buildMatriz();
+    FILE *file = getArquivo(filePath);
+    loadMatriz(file,&m);
+    return m;
+}
+
+void clearMatriz(Matriz *m){
+    for( int i = 0 ; i < MAX_COLS ; i++){
+        free((*m).matriz[i]);
+    }
+    free((*m).matriz);
+}
+
+int eqMatriz(Matriz *m1,Matriz *m2){
+    if ((*m1).rows != (*m2).rows || (*m1).cols != (*m2).cols) { return 0;}
+    else {
+        for ( int i = 0 ; i < (*m1).rows ; i++){
+            for ( int j = 0 ; j < (*m1).cols ; j++){
+                if( (*m1).matriz[i][j] != (*m2).matriz[i][j] ){ break ; return 0;}
+            }
+        }
+        return 1;
+    }
+}
 
 void printMatriz(Matriz *m) {
     for (int i = 0; i < (*m).rows; i++) {
