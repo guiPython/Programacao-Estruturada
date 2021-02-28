@@ -1,5 +1,7 @@
 #ifndef MATRIZ
 #define MATRIZ
+#define MAX_COLS 15
+#define MAX_ROWS 15
 
 #include <stdio.h>
 
@@ -18,6 +20,7 @@ int  eqMatriz(Matriz*,Matriz*);
 void printMatriz(Matriz *m);
 void opEscalarMatriz(Matriz *m, float *num, char op);
 void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
+float detMatriz(Matriz *m);
 
 #include "matriz.c"
 #endif 
