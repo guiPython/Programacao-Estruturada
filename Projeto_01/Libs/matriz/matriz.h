@@ -20,7 +20,9 @@ int  eqMatriz(Matriz*,Matriz*);
 void printMatriz(Matriz *m);
 void opEscalarMatriz(Matriz *m, float *num, char op);
 void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
-float detMatriz(Matriz *m);
+float detMatriz(Matriz m);
+float detMatrizSarrus(Matriz m);
+float detMatrizLaplace(Matriz m);
 
 #include "matriz.c"
 #endif 

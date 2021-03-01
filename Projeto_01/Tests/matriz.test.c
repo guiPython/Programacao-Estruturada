@@ -58,12 +58,32 @@ static char* MULTIPLICACAO_MATRIZES(){
     return 0;
 }
 
+static char* DETERMINANTE_MATRIZES_LAPLACE_3X3(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_02.csv");
+    float res = 0.0F;
+    float fres = detMatrizSarrus(m);
+    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 3X3",res==fres);
+    clearMatriz(&m);
+    return 0;
+}
+
+static char* DETERMINANTE_MATRIZES_LAPLACE_4X4(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_03.csv");
+    float res = 345761.0F;
+    float fres = detMatrizLaplace(m);
+    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 4X4",res==fres);
+    clearMatriz(&m);
+    return 0;
+}
+
 static char* all_tests(){
     mu_run_test(SOMA_ESCALAR_MATRIZ);
     mu_run_test(SUBTRACAO_ESCALAR_MATRIZ);
     mu_run_test(MULTIPLICACAO_ESCALAR_MATRIZ);
     mu_run_test(DIVISAO_ESCALAR_MATRIZ);
     mu_run_test(MULTIPLICACAO_MATRIZES);
+    mu_run_test(DETERMINANTE_MATRIZES_LAPLACE_3X3);
+    mu_run_test(DETERMINANTE_MATRIZES_LAPLACE_4X4);
     return 0;
 }
 
@@ -79,3 +99,6 @@ int main(int argc, char **argv){
 
     return result != 0;
 }
+
+// Comando de Compilação: gcc matriz.test.c  -o matrizTest
+// Comando Run: ./"matrizTest.exe" 
