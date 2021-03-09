@@ -47,6 +47,24 @@ static char* DIVISAO_ESCALAR_MATRIZ(){
     return 0;
 }
 
+static char* ADICAO_MATRIZES(){
+    Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/mult.csv");
+    mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES",eqMatriz(&m1,&m2));
+    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
+    return 0;
+}
+
+static char* SUBTRACAO_MATRIZES(){
+    Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/subtrM.csv");
+    mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES",eqMatriz(&m1,&m2));
+    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
+    return 0;
+}
+
 static char* MULTIPLICACAO_MATRIZES(){
     Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz m2 = prepMatriz("./src/Matrizes/matriz_02.csv");

@@ -78,6 +78,32 @@ void opEscalarMatriz(Matriz *m,float *num,char op){
     }
 }
 
+void sumMatrizes(Matriz *m1 , Matriz *m2 , Matriz *res){
+    if ( m1->cols != m2->cols & m1->rows != m2->rows ){
+        printf("\nAs Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    }
+    else{
+        for( int i = 0; i < m1->rows; i++){
+            for( int j = 0; j < m1->cols; j++){
+                res->matriz[i][j] = m1->matriz[i][j] + m2->matriz[i][j];
+            }
+        }
+    }
+}
+
+void subtrMatrizes(Matriz *m1 , Matriz *m2 , Matriz *res){
+    if ( m1->cols != m2->cols & m1->rows != m2->rows ){
+        printf("\nAs Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    }
+    else{
+        for( int i = 0; i < m1->rows; i++){
+            for( int j = 0; j < m1->cols; j++){
+                res->matriz[i][j] = m1->matriz[i][j] - m2->matriz[i][j];
+            }
+        }
+    }
+}
+
 void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res){
     if ( m1->cols != m2->rows ){
         printf("\nNumero de colunas de M1 != Numero de linhas de M2.\n");

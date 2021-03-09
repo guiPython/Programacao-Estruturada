@@ -19,6 +19,8 @@ void clearMatriz(Matriz *m);
 int  eqMatriz(Matriz*,Matriz*);
 void printMatriz(Matriz *m);
 void opEscalarMatriz(Matriz *m, float *num, char op);
+void sumMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
+void subtrMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
 void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
 float detMatriz(Matriz m);
 float detMatrizSarrus(Matriz m);
