@@ -114,6 +114,34 @@ void clearMatriz(Matriz *m){
     free(m->matriz);
 }
 
+static void reduzirMatriz(Matriz* m, int a, int b, float fator) {
+    if (m->rows < a || m->rows < b) kill("Erro: Numero de colunas eh menor do que os parametros passados.\n");
+
+    for (int i = 0; i < m->cols; i++)
+    {
+        m->matriz[b][i] -= m->matriz[a][i] * fator;
+    }
+}
+
+static void trocarLinhas(Matriz* m, int l1, int l2)
+{
+    if (m->rows <= l1 || m->rows <= l2) kill("Erro: Numero da linha é maior do que a quantidade de linhas da matriz");
+    for (int i = 0; i < m->rows; i++) {
+        float temp = m->matriz[l1][i];
+        m->matriz[l1][i] = m->matriz[l2][i];
+        m->matriz[l2][i] = temp;
+    }
+}
+
+static void multLinha(Matriz* m, int l, float val)
+{
+    if (m->rows <= l) kill("Erro: Numero da linha é maior do que a quantidade de linhas da matriz");
+    for (int i = 0; i < m->rows; i++)
+    {
+        m->matriz[l][i] *= val;
+    }
+}
+
 int eqMatriz(Matriz* m1, Matriz* m2){
     if (m1->rows != m2->rows || m1->cols != m2->cols) { return 0;}
     else {
@@ -191,32 +219,52 @@ Matriz multMatrizes(Matriz* m1, Matriz* m2){
     }
 }
 
-void reduzirMatriz(Matriz* m, int a, int b, float fator) {
-    if (m->rows < a || m->rows < b) kill("Erro: Numero de colunas eh menor do que os parametros passados.\n");
-
-    for (int i = 0; i < m->cols; i++)
+Matriz inversaMatriz(Matriz* m) {
+    if ((m)->cols != (m)->rows) kill("Erro: A matriz nao eh quadrada\n");
+    Matriz copia = copiarMatriz(m);
+    Matriz inversa = criarMatrizIdentidade(m->rows);
+    for (int i = 0; i < copia.rows; i++)
     {
-        m->matriz[b][i] -= m->matriz[a][i] * fator;
+        for (int j = i + 1; j < copia.rows; j++)
+        {
+            if (copia.matriz[i][i] == 0) {
+                for (int l = i + 1; l < copia.rows; l++)
+                {
+                    if (copia.matriz[l][l] != 0)
+                    {
+                        trocarLinhas(&copia, i, l);
+                        break;
+                    }
+                }
+                continue;
+            }
+            float fator = copia.matriz[j][i] / copia.matriz[i][i];
+            reduzirMatriz(&inversa, i, j, fator);
+            reduzirMatriz(&copia, i, j, fator);
+        }
     }
-}
 
-void trocarLinhas(Matriz* m, int l1, int l2)
-{
-    if (m->rows <= l1 || m->rows <= l2) kill("Erro: Numero da linha é maior do que a quantidade de linhas da matriz");
-    for (int i = 0; i < m->rows; i++) {
-        float temp = m->matriz[l1][i];
-        m->matriz[l1][i] = m->matriz[l2][i];
-        m->matriz[l2][i] = temp;
-    }
-}
-
-void multLinha(Matriz* m, int l, float val)
-{
-    if (m->rows <= l) kill("Erro: Numero da linha é maior do que a quantidade de linhas da matriz");
-    for (int i = 0; i < m->rows; i++) 
+    for (int i = copia.rows - 1; i > 0; i--)
     {
-        m->matriz[l][i] *= val;
+        for (int j = i - 1; j >= 0; j--)
+        {
+            if (copia.matriz[i][i] == 0) continue;
+            if (j == -1) break;
+            float fator = copia.matriz[j][i] / copia.matriz[i][i];
+            reduzirMatriz(&inversa, i, j, fator);
+            reduzirMatriz(&copia, i, j, fator);
+        }
     }
+
+    for (int i = 0; i < copia.rows; i++) {
+        if (copia.matriz[i][i] == 0) continue;
+        float fator = 1 / copia.matriz[i][i];
+        multLinha(&inversa, i, fator);
+        multLinha(&copia, i, fator);
+    }
+
+    clearMatriz(&copia);
+    return inversa;
 }
 
 float detMatriz(Matriz* m) {
@@ -278,51 +326,4 @@ float detMatrizLaplace(Matriz m){
         }
         return detM;
     }
-}
-
-Matriz inversa(Matriz* m) {
-    if ((m)->cols != (m)->rows) kill("Erro: A matriz nao eh quadrada\n");
-    Matriz inversa = criarMatrizIdentidade(m->rows);
-
-    for (int i = 0; i < m->rows; i++) 
-    {
-        for (int j = i + 1; j < m->rows; j++) 
-        {
-            if (m->matriz[i][i] == 0) {
-                for (int l = i + 1; l < m->rows; l++) 
-                {
-                    if (m->matriz[l][l] != 0) 
-                    {
-                        trocarLinhas(m, i, l);
-                        break;
-                    }
-                }
-                continue;
-            }
-            float fator = m->matriz[j][i] / m->matriz[i][i];
-            reduzirMatriz(&inversa, i, j, fator);
-            reduzirMatriz(m, i, j, fator);
-        }
-    }
-
-    for (int i = m->rows - 1; i > 0; i--) 
-    {
-        for (int j = i - 1; j >= 0; j--) 
-        {
-            if (m->matriz[i][i] == 0) continue;
-            if (j == -1) break;
-            float fator = m->matriz[j][i] / m->matriz[i][i];
-            reduzirMatriz(&inversa, i, j, fator);
-            reduzirMatriz(m, i, j, fator);
-        }
-    }
-
-    for (int i = 0; i < m->rows; i++) {
-        if (m->matriz[i][i] == 0) continue;
-        float fator = 1 / m->matriz[i][i];
-        multLinha(&inversa, i, fator);
-        multLinha(m, i, fator);
-    }
-
-    return inversa;
 }
