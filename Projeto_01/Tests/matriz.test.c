@@ -6,95 +6,95 @@
 
 int tests_run = 0;
 
-static char* SOMA_ESCALAR_MATRIZ() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/soma.csv");
+static char* SOMA_ESCALAR_MATRIZ(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/soma.csv");
     float num = 2.0F;
-    Matriz t = opEscalarMatriz(&m, num, '+');
-    mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&t, &res));
-    clearMatriz(&m); clearMatriz(&res);
+    opEscalarMatriz(&m,&num,'+');
+    mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
+    clearMatriz(&m) ; clearMatriz(&res);
     return 0;
 }
 
-static char* SUBTRACAO_ESCALAR_MATRIZ() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/subtr.csv");
+static char* SUBTRACAO_ESCALAR_MATRIZ(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/subtr.csv");
     float num = 2.0F;
-    Matriz t = opEscalarMatriz(&m, num, '-');
-    mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&t, &res));
-    clearMatriz(&m); clearMatriz(&res);
+    opEscalarMatriz(&m,&num,'-');
+    mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
+    clearMatriz(&m) ; clearMatriz(&res);
     return 0;
 }
 
-static char* MULTIPLICACAO_ESCALAR_MATRIZ() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/mult.csv");
+
+static char* MULTIPLICACAO_ESCALAR_MATRIZ(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/mult.csv");
     float num = 2.0F;
-    Matriz t = opEscalarMatriz(&m, num, '*');
-    mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&t, &res));
-    clearMatriz(&m); clearMatriz(&res);
+    opEscalarMatriz(&m,&num,'*');
+    mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
+    clearMatriz(&m) ; clearMatriz(&res);
     return 0;
 }
 
-static char* DIVISAO_ESCALAR_MATRIZ() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/divs.csv");
+static char* DIVISAO_ESCALAR_MATRIZ(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/divs.csv");
     float num = 2.0F;
-    Matriz t = opEscalarMatriz(&m, num, '/');
-    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&t, &res));
-    clearMatriz(&m); clearMatriz(&res);
+    opEscalarMatriz(&m,&num,'/');
+    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
+    clearMatriz(&m) ; clearMatriz(&res);
     return 0;
 }
 
-static char* ADICAO_MATRIZES() {
-    Matriz m1 = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz m2 = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/mult.csv");
-    Matriz t = sumMatrizes(&m1, &m2);
-    mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES", eqMatriz(&t, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&res);
+static char* ADICAO_MATRIZES(){
+    Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/mult.csv");
+    mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES",eqMatriz(&m1,&m2));
+    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
     return 0;
 }
 
-static char* SUBTRACAO_MATRIZES() {
-    Matriz m1 = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz m2 = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/subtrM.csv");
-    Matriz t = subtrMatrizes(&m1, &m2);
-    mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES", eqMatriz(&t, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&res);
+static char* SUBTRACAO_MATRIZES(){
+    Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz res = prepMatriz("./src/Resultados/subtrM.csv");
+    mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES",eqMatriz(&m1,&m2));
+    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
     return 0;
 }
 
-static char* MULTIPLICACAO_MATRIZES() {
-    Matriz m1 = carregarMatriz("Tests/src/Matrizes/matriz_01.csv");
-    Matriz m2 = carregarMatriz("Tests/src/Matrizes/matriz_02.csv");
-    Matriz res = carregarMatriz("Tests/src/Resultados/multM.csv");
-    Matriz m3 = multMatrizes(&m1, &m2);
-    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m3, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&m3); clearMatriz(&res);
+static char* MULTIPLICACAO_MATRIZES(){
+    Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m2 = prepMatriz("./src/Matrizes/matriz_02.csv");
+    Matriz m3; m3.matriz = buildMatriz();
+    Matriz res = prepMatriz("./src/Resultados/multM.csv");
+    multMatrizes(&m1,&m2,&m3);
+    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m3,&res));
+    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&m3) ;clearMatriz(&res);
     return 0;
 }
 
-static char* DETERMINANTE_MATRIZES_LAPLACE_3X3() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_02.csv");
+static char* DETERMINANTE_MATRIZES_LAPLACE_3X3(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_02.csv");
     float res = 0.0F;
     float fres = detMatrizSarrus(m);
-    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 3X3", res == fres);
+    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 3X3",res==fres);
     clearMatriz(&m);
     return 0;
 }
 
-static char* DETERMINANTE_MATRIZES_LAPLACE_4X4() {
-    Matriz m = carregarMatriz("Tests/src/Matrizes/matriz_03.csv");
+static char* DETERMINANTE_MATRIZES_LAPLACE_4X4(){
+    Matriz m = prepMatriz("./src/Matrizes/matriz_03.csv");
     float res = 345761.0F;
     float fres = detMatrizLaplace(m);
-    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 4X4", res == fres);
+    mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 4X4",res==fres);
     clearMatriz(&m);
     return 0;
 }
 
-static char* all_tests() {
+static char* all_tests(){
     mu_run_test(SOMA_ESCALAR_MATRIZ);
     mu_run_test(SUBTRACAO_ESCALAR_MATRIZ);
     mu_run_test(MULTIPLICACAO_ESCALAR_MATRIZ);

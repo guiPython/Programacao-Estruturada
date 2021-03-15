@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
+#include<string.h>
+#include<stdlib.h>
 #include "../csv/csv.h"
-#include "matriz.h"
+#include "./matriz.h"
+
 
 
 void kill(const char* erro)
@@ -12,12 +12,14 @@ void kill(const char* erro)
     exit(0);
 }
 
+
 static void allocMatriz(Matriz* m) {
     m->matriz = (float**)malloc(m->rows * sizeof(float));
     for (int i = 0; i < m->rows; ++i) {
         m->matriz[i] = (float*)malloc(m->cols * sizeof(float));
     }
 }
+
 
 static void loadMatriz(Matriz* m, FILE* arq) {
     int i = 0;
@@ -36,7 +38,6 @@ static void loadMatriz(Matriz* m, FILE* arq) {
     m->rows = i;
     m->cols = prevJ;
     allocMatriz(m);
-
     rewind(arq);
     i = 0;
     while (fgets(line, sizeof(line), arq)) {
@@ -47,14 +48,13 @@ static void loadMatriz(Matriz* m, FILE* arq) {
         }
         i++;
     }
-
     fclose(arq);
 }
 
-Matriz carregarMatriz(char *filePath) {
-    Matriz m; 
+Matriz prepMatriz(char *filePath){
+    Matriz m ;
     FILE *file = getArquivo(filePath);
-    loadMatriz(&m, file);
+    loadMatriz(&m,file);
     return m;
 }
 
@@ -93,6 +93,7 @@ Matriz criarMatrizDeTamanho(int rows, int cols)
     return dest;
 }
 
+
 Matriz criarMatrizIdentidade(int n)
 {
     Matriz dest = criarMatrizDeTamanho(n, n);
@@ -107,8 +108,9 @@ Matriz criarMatrizIdentidade(int n)
     return dest;
 }
 
+
 void clearMatriz(Matriz *m){
-    for(int i = 0; i < m->rows; i++){
+    for( int i = 0 ; i < m->cols ; i++){
         free(m->matriz[i]);
     }
     free(m->matriz);
@@ -142,19 +144,19 @@ static void multLinha(Matriz* m, int l, float val)
     }
 }
 
-int eqMatriz(Matriz* m1, Matriz* m2){
+int eqMatriz(Matriz *m1,Matriz *m2){
     if (m1->rows != m2->rows || m1->cols != m2->cols) { return 0;}
     else {
         for ( int i = 0 ; i < m1->rows ; i++){
             for ( int j = 0 ; j < m1->cols ; j++){
-                if( m1->matriz[i][j] != m2->matriz[i][j] ){ return 0; }
+                if( m1->matriz[i][j] != m2->matriz[i][j] ){ break ; return 0;}
             }
         }
         return 1;
     }
 }
 
-void printMatriz(Matriz* m) {
+void printMatriz(Matriz *m) {
     for (int i = 0; i < m->rows; i++) {
         for (int j = 0; j < m->cols; j++) {
             printf("%.2f\t", m->matriz[i][j]);
@@ -163,60 +165,60 @@ void printMatriz(Matriz* m) {
     }
 }
 
-Matriz opEscalarMatriz(Matriz* m, float num, char op){
-    Matriz res = criarMatrizDeMesmoTamanho(m);
+void opEscalarMatriz(Matriz *m,float *num,char op){
     for (int i = 0; i < m->rows; i++) {
         for (int j = 0; j < m->cols; j++) {
-            if      (op == '*'){ res.matriz[i][j] = m->matriz[i][j] * (num); }
-            else if (op == '+'){ res.matriz[i][j] = m->matriz[i][j] + (num); }
-            else if (op == '-'){ res.matriz[i][j] = m->matriz[i][j] - (num); }
-            else if (op == '/'){ res.matriz[i][j] = m->matriz[i][j] / (num); }
-            else kill("Erro: Operecao nao definida");
+            if( op == '*' ){ m->matriz[i][j] *= (*num); }
+            else if ( op == '+'  ){ m->matriz[i][j] += (*num); }
+            else if ( op == '-' ){ m->matriz[i][j] -= (*num); }
+            else if ( op == '/'  ){ m->matriz[i][j] /= (*num); }
+            else printf("Operecao nao definida.");
         }
-    }
-    return res;
-}
-
-Matriz sumMatrizes(Matriz* m1, Matriz* m2){
-    if (m1->rows != m2->rows || m1->cols != m2->cols) kill("As Matrizes M1 e M2 nao tem a mesma dimensao\n");
-    else {
-        Matriz res = criarMatrizDeMesmoTamanho(m1);
-        for(int i = 0; i < m1->rows; i++) {
-            for(int j = 0; j < m1->cols; j++) {
-                res.matriz[i][j] = m1->matriz[i][j] + m2->matriz[i][j];
-            }
-        }
-        return res;
     }
 }
 
-Matriz subtrMatrizes(Matriz* m1, Matriz* m2){
-    if (m1->rows != m2->rows || m1->cols != m2->cols) kill("As Matrizes M1 e M2 nao tem a mesma dimensao\n");
+void sumMatrizes(Matriz *m1 , Matriz *m2 , Matriz *res){
+    if ( m1->cols != m2->cols & m1->rows != m2->rows ){
+        printf("\nAs Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    }
     else{
-        Matriz res = criarMatrizDeMesmoTamanho(m1);
-        for(int i = 0; i < m1->rows; i++) {
-            for(int j = 0; j < m1->cols; j++) {
-                res.matriz[i][j] = m1->matriz[i][j] - m2->matriz[i][j];
+        for( int i = 0; i < m1->rows; i++){
+            for( int j = 0; j < m1->cols; j++){
+                res->matriz[i][j] = m1->matriz[i][j] + m2->matriz[i][j];
             }
         }
-        return res;
     }
 }
 
-Matriz multMatrizes(Matriz* m1, Matriz* m2){
-    if (m1->cols != m2->rows) kill("Numero de colunas de M1 != Numero de linhas de M2.\n");
-    else {
-        Matriz res = criarMatrizDeTamanho(m1->rows, m2->cols);
-        float val;
-        for (int i = 0 ; i < m1->rows ; i++){
-            for (int j = 0; j < m2->cols; j++){
-                val = 0;
-                for ( int k = 0 ; k < m1->cols ; k++) val += (m1->matriz[i][k]) * (m2->matriz[k][j]);
-                res.matriz[i][j] = val;
+void subtrMatrizes(Matriz *m1 , Matriz *m2 , Matriz *res){
+    if ( m1->cols != m2->cols & m1->rows != m2->rows ){
+        printf("\nAs Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    }
+    else{
+        for( int i = 0; i < m1->rows; i++){
+            for( int j = 0; j < m1->cols; j++){
+                res->matriz[i][j] = m1->matriz[i][j] - m2->matriz[i][j];
             }
         }
-        return res;
     }
+}
+
+void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res){
+    if ( m1->cols != m2->rows ){
+        printf("\nNumero de colunas de M1 != Numero de linhas de M2.\n");
+    }
+    else{
+        float val;
+        for ( int i = 0 ; i < m1->rows ; i++){
+            for ( int j = 0; j < m2->cols; j++){
+                val = 0;
+                for ( int k = 0 ; k < (*m1).cols ; k++) val += (m1->matriz[i][k]) * (m2->matriz[k][j]);
+                (*res).matriz[i][j] = val;
+            }
+        }
+        res->rows = m1->rows ; res->cols = m2->cols;
+    }
+    
 }
 
 Matriz inversaMatriz(Matriz* m) {
@@ -267,22 +269,12 @@ Matriz inversaMatriz(Matriz* m) {
     return inversa;
 }
 
-float detMatriz(Matriz* m) {
-    if (m->cols != m->rows) kill("Erro: A matriz nao eh quadrada\n");
-
-    Matriz copia = copiarMatriz(m);
-    for (int i = 0; i < copia.rows; i++) {
-        for (int j = i + 1; j < copia.cols; j++) {
-            if (copia.matriz[i][i] == 0) continue;
-            float f = copia.matriz[j][i] / (copia.matriz[i][i]);
-            reduzirMatriz(&copia, i, j, f);
-        }
+// Algoritmo para matrizes NxN / N<=2.
+float detMatriz(Matriz m){
+    if( m.cols == 1 ){ return m.matriz[0][0]; }
+    else{
+        return m.matriz[0][0] * m.matriz[1][1] - m.matriz[0][1] * m.matriz[1][0];
     }
-
-    float det = 1.f;
-    for (int i = 0; i < copia.cols; i++) det *= copia.matriz[i][i];
-    clearMatriz(&copia);
-    return det;
 }
 
 //https://pt.wikipedia.org/wiki/Regra_de_Sarrus
@@ -305,7 +297,8 @@ float detMatrizLaplace(Matriz m){
     else{
         float detM = 0.0F;
         for( int k = 0; k < m.cols ; k++){
-            Matriz submatriz = criarMatrizDeTamanho(m.cols - 1, m.cols - 1);
+            Matriz submatriz;
+            submatriz = criarMatrizDeTamanho( m.rows -1,m.cols -1);
             int iaux = 0;
             int jaux = 0;
             if( m.matriz[1][k] != 0 ){

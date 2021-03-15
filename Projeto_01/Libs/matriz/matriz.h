@@ -1,6 +1,5 @@
 #ifndef MATRIZ
 #define MATRIZ
-
 #include <stdio.h>
 
 typedef struct {
@@ -9,32 +8,25 @@ typedef struct {
     float** matriz;
 } Matriz;
 
-/** Criação de matriz */
-static void kill(const char* erro);
+
+void kill(const char* erro);
 static void allocMatriz(Matriz* m);
-static void loadMatriz(Matriz* m, FILE* file);
-
-Matriz carregarMatriz(char* filePath);
-Matriz copiarMatriz(Matriz* src);
+static void loadMatriz(Matriz *m, FILE *file);
+Matriz prepMatriz(char*);
+matriz copiarMatriz(Matriz* src);
 Matriz criarMatrizDeMesmoTamanho(Matriz* src);
-Matriz criarMatrizDeTamanho(int rows, int cols);
+Matriz criarMatrizDeTamanho(int rows,int cols);
 Matriz criarMatrizIdentidade(int n);
-void clearMatriz(Matriz* m);
-void printMatriz(Matriz* m);
-
-/** Operações com matriz */
-static void reduzirMatriz(Matriz* m, int a, int b, float fator);
-static void trocarLinhas(Matriz* m, int l1, int l2);
-static void multLinha(Matriz* m, int l, float val);
-
-int eqMatriz(Matriz* m1, Matriz* m2);
-Matriz opEscalarMatriz(Matriz* m, float num, char op);
-Matriz sumMatrizes(Matriz* m1, Matriz* m2);
-Matriz subtrMatrizes(Matriz* m1, Matriz* m2);
-Matriz multMatrizes(Matriz* m1, Matriz* m2);
-Matriz inversaMatriz(Matriz* m);
-float detMatriz(Matriz* m);
+void clearMatriz(Matriz *m);
+int  eqMatriz(Matriz*,Matriz*);
+void printMatriz(Matriz *m);
+void opEscalarMatriz(Matriz *m, float *num, char op);
+void sumMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
+void subtrMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
+void multMatrizes(Matriz *m1, Matriz *m2, Matriz *res);
+float detMatriz(Matriz m);
 float detMatrizSarrus(Matriz m);
 float detMatrizLaplace(Matriz m);
 
+#include "matriz.c"
 #endif 
