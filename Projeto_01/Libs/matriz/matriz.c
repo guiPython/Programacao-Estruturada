@@ -15,7 +15,7 @@ void kill(const char* erro)
 
 static void allocMatriz(Matriz* m) {
     m->matriz = (float**)malloc(m->rows * sizeof(float));
-    for (int i = 0; i < m->cols; ++i) {
+    for (int i = 0; i < m->rows; ++i) {
         m->matriz[i] = (float*)malloc(m->cols * sizeof(float));
     }
 }
