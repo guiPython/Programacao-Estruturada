@@ -10,9 +10,9 @@ static char* SOMA_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/soma.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,num,'+');
-    mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
-    clearMatriz(&m) ; clearMatriz(&res);
+    Matriz m2 = opEscalarMatriz(&m,num,'+');
+    mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m2,&res));
+    clearMatriz(&m) ;  clearMatriz(&m2) ; clearMatriz(&res);
     return 0;
 }
 
@@ -20,9 +20,9 @@ static char* SUBTRACAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/subtr.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,num,'-');
-    mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
-    clearMatriz(&m) ; clearMatriz(&res);
+    Matriz m2 = opEscalarMatriz(&m,num,'-');
+    mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m2,&res));
+    clearMatriz(&m) ;  clearMatriz(&m2) ; clearMatriz(&res);
     return 0;
 }
 
@@ -31,9 +31,9 @@ static char* MULTIPLICACAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/mult.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,num,'*');
-    mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
-    clearMatriz(&m) ; clearMatriz(&res);
+    Matriz m2 = opEscalarMatriz(&m,num,'*');
+    mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m2,&res));
+    clearMatriz(&m) ;  clearMatriz(&m2) ; clearMatriz(&res);
     return 0;
 }
 
@@ -41,36 +41,37 @@ static char* DIVISAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/divs.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,num,'/');
-    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
-    clearMatriz(&m) ; clearMatriz(&res);
+    Matriz m2 = opEscalarMatriz(&m,num,'/');
+    mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m2,&res));
+    clearMatriz(&m) ; clearMatriz(&m2) ;  clearMatriz(&res);
     return 0;
 }
 
 static char* ADICAO_MATRIZES(){
     Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m3 = sumMatrizes(m1,m2);
     Matriz res = prepMatriz("./src/Resultados/mult.csv");
-    mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES",eqMatriz(&m1,&m2));
-    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
+    mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES",eqMatriz(&m3,&res));
+    clearMatriz(&m1) ; clearMatriz(&m2); clearMatriz(&m3) ; clearMatriz(&res);
     return 0;
 }
 
 static char* SUBTRACAO_MATRIZES(){
     Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz m2 = prepMatriz("./src/Matrizes/matriz_01.csv");
+    Matriz m3 = subtrMatrizes(m1,m2);
     Matriz res = prepMatriz("./src/Resultados/subtrM.csv");
-    mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES",eqMatriz(&m1,&m2));
-    clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&res);
+    mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES",eqMatriz(&m3,&res));
+    clearMatriz(&m1) ; clearMatriz(&m2); clearMatriz(&m3)  ; clearMatriz(&res);
     return 0;
 }
 
 static char* MULTIPLICACAO_MATRIZES(){
     Matriz m1 = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz m2 = prepMatriz("./src/Matrizes/matriz_02.csv");
-    Matriz m3; m3.matriz = buildMatriz();
+    Matriz m3 = multMatrizes(m1,m2);
     Matriz res = prepMatriz("./src/Resultados/multM.csv");
-    multMatrizes(&m1,&m2,&m3);
     mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m3,&res));
     clearMatriz(&m1) ; clearMatriz(&m2) ; clearMatriz(&m3) ;clearMatriz(&res);
     return 0;
