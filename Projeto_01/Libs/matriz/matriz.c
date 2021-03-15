@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include "../csv/csv.h"
-#include "./matriz.h"
+#include "matriz.h"
 
 
 
@@ -270,33 +270,13 @@ Matriz inversaMatriz(Matriz* m) {
     return inversa;
 }
 
-// Algoritmo para matrizes NxN / N<=2.
-/*float detMatriz(Matriz m){
-    if( m.cols == 1 ){ return m.matriz[0][0]; }
-    else{
-        return m.matriz[0][0] * m.matriz[1][1] - m.matriz[0][1] * m.matriz[1][0];
-    }
-}*/
-
-//https://pt.wikipedia.org/wiki/Regra_de_Sarrus
-//Caso Base do Algoritmo de Laplace Recursivo e para matrizes NxN / N == 3.
-float detMatrizSarrus(Matriz m){
-    float dp = 0.0F ; float ds = 0.0F;
-    for( int j = 0 ; j <= 3 ; j++){
-        // Resto de n / m , onde n < m sempre é n.
-        dp = dp + m.matriz[0][j] * m.matriz[1][(j+1)%3] * m.matriz[2][(j+2)%3];
-        ds = ds + m.matriz[2][j] * m.matriz[1][(j+1)%3] * m.matriz[0][(j+2)%3];
-    }
-    return dp - ds;
-}
-
 //https://pt.wikipedia.org/wiki/Teorema_de_Laplace
 float detMatrizLaplace(Matriz m){
-    if ( m.cols == 3){
-        return detMatrizSarrus(m);
+    if ( m.cols == 1 ){
+        return m.matriz[0][0];
     }
     else{
-        float detM = 0.0F;
+        float detM = 0.0000F;
         for( int k = 0; k < m.cols ; k++){
             Matriz submatriz;
             submatriz = criarMatrizDeTamanho( m.rows -1,m.cols -1);
@@ -322,27 +302,3 @@ float detMatrizLaplace(Matriz m){
     }
 }
 
-float detMatriz(Matriz m) {
-    float detM = 0.0F;
-    for( int k = 0; k < m.cols ; k++){
-        Matriz submatriz = criarMatrizDeTamanho(m.cols - 1, m.cols - 1);
-        int iaux = 0;
-        int jaux = 0;
-        if( m.matriz[1][k] != 0 ){
-            for( int i = 1 ; i < m.rows ; i++){
-                for( int j =0 ; j < m.cols ; j++){
-                    if ( j != k){
-                        submatriz.matriz[iaux][jaux] = m.matriz[i][j];
-                        jaux++;
-                    }
-                }
-                iaux++;
-                jaux = 0;
-            }
-            float fator = k % 2 == 0 ? m.matriz[0][k] : -m.matriz[0][k];
-            detM = detM + fator * detMatrizLaplace(submatriz);
-            clearMatriz(&submatriz);
-        }
-    }
-    return detM;
-}

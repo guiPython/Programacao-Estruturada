@@ -4,5 +4,4 @@
 
 FILE* getArquivo(char* path);
 
-#include "csv.c"
 #endif

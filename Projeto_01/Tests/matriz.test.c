@@ -80,7 +80,7 @@ static char* MULTIPLICACAO_MATRIZES(){
 static char* DETERMINANTE_MATRIZES_LAPLACE_3X3(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_02.csv");
     float res = 0.0F;
-    float fres = detMatrizSarrus(m);
+    float fres = detMatrizLaplace(m);
     mu_assert("ERROR: FALHA NO CALCULO DE DETERMINANTES DE M 3X3",res==fres);
     clearMatriz(&m);
     return 0;

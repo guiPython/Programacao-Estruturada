@@ -24,9 +24,7 @@ Matriz opEscalarMatriz(Matriz *m, float num, char op);
 Matriz sumMatrizes(Matriz m1, Matriz m2);
 Matriz subtrMatrizes(Matriz m1, Matriz m2);
 Matriz multMatrizes(Matriz m1, Matriz m2);
-float detMatriz(Matriz m);
-float detMatrizSarrus(Matriz m);
 float detMatrizLaplace(Matriz m);
 
-#include "matriz.c"
+
 #endif 
