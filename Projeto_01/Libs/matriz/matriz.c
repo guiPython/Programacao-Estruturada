@@ -6,13 +6,6 @@
 
 
 
-void kill(const char* erro)
-{
-    printf("%s", erro); 
-    exit(0);
-}
-
-
 static void allocMatriz(Matriz* m) {
     m->matriz = (float**)malloc(m->rows * sizeof(float));
     for (int i = 0; i < m->rows; ++i) {

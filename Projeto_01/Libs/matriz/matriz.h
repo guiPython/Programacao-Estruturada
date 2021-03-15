@@ -9,7 +9,6 @@ typedef struct {
 } Matriz;
 
 
-void kill(const char* erro);
 static void allocMatriz(Matriz* m);
 static void loadMatriz(Matriz *m, FILE *file);
 Matriz prepMatriz(char*);
@@ -26,6 +25,5 @@ Matriz subtrMatrizes(Matriz m1, Matriz m2);
 Matriz multMatrizes(Matriz m1, Matriz m2);
 float detMatrizLaplace(Matriz m);
 
-
-//#include "matriz.c"
+#include "matriz.c"
 #endif 
