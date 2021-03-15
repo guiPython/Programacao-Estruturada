@@ -15,7 +15,7 @@ void kill(const char* erro)
 
 static void allocMatriz(Matriz* m) {
     m->matriz = (float**)malloc(m->rows * sizeof(float));
-    for (int i = 0; i < m->rows; ++i) {
+    for (int i = 0; i < m->cols; ++i) {
         m->matriz[i] = (float*)malloc(m->cols * sizeof(float));
     }
 }
@@ -110,7 +110,7 @@ Matriz criarMatrizIdentidade(int n)
 
 
 void clearMatriz(Matriz *m){
-    for( int i = 0 ; i < m->cols ; i++){
+    for( int i = 0 ; i < m->rows ; i++){
         free(m->matriz[i]);
     }
     free(m->matriz);
@@ -149,7 +149,7 @@ int eqMatriz(Matriz *m1,Matriz *m2){
     else {
         for ( int i = 0 ; i < m1->rows ; i++){
             for ( int j = 0 ; j < m1->cols ; j++){
-                if( m1->matriz[i][j] != m2->matriz[i][j] ){ break ; return 0;}
+                if( m1->matriz[i][j] != m2->matriz[i][j] ){ return 0;}
             }
         }
         return 1;
@@ -319,4 +319,29 @@ float detMatrizLaplace(Matriz m){
         }
         return detM;
     }
+}
+
+float detMatriz(Matriz* m) {
+    float detM = 0.0F;
+    for( int k = 0; k < m->cols ; k++){
+        Matriz submatriz = criarMatrizDeTamanho(m->cols - 1, m->cols - 1);
+        int iaux = 0;
+        int jaux = 0;
+        if( m->matriz[1][k] != 0 ){
+            for( int i = 1 ; i < m->rows ; i++){
+                for( int j =0 ; j < m->cols ; j++){
+                    if ( j != k){
+                        submatriz.matriz[iaux][jaux] = m->matriz[i][j];
+                        jaux++;
+                    }
+                }
+                iaux++;
+                jaux = 0;
+            }
+            float fator = k % 2 == 0 ? m->matriz[0][k] : -m->matriz[0][k];
+            detM = detM + fator * detMatrizLaplace(submatriz);
+            clearMatriz(&submatriz);
+        }
+    }
+    return detM;
 }
