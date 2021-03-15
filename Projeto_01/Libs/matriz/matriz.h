@@ -27,4 +27,5 @@ Matriz multMatrizes(Matriz m1, Matriz m2);
 float detMatrizLaplace(Matriz m);
 
 
+//#include "matriz.c"
 #endif 

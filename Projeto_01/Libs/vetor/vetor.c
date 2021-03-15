@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../csv/csv.h"
-#include "./Vetor.h"
+#include "./vetor.h"
 #include <math.h>
 
 void kill(const char* erro)

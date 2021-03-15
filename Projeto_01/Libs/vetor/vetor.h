@@ -18,5 +18,5 @@ void opeEscVetor(float a, Vetor* vetor, char ope);
 float prodEscVetor(Vetor a, Vetor b);
 float moduloVetor(Vetor a);
 
-#include "Vetor.c"
+//#include "vetor.c"
 #endif
