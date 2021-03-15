@@ -10,7 +10,7 @@ static char* SOMA_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/soma.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,&num,'+');
+    opEscalarMatriz(&m,num,'+');
     mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
     clearMatriz(&m) ; clearMatriz(&res);
     return 0;
@@ -20,7 +20,7 @@ static char* SUBTRACAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/subtr.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,&num,'-');
+    opEscalarMatriz(&m,num,'-');
     mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
     clearMatriz(&m) ; clearMatriz(&res);
     return 0;
@@ -31,7 +31,7 @@ static char* MULTIPLICACAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/mult.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,&num,'*');
+    opEscalarMatriz(&m,num,'*');
     mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
     clearMatriz(&m) ; clearMatriz(&res);
     return 0;
@@ -41,7 +41,7 @@ static char* DIVISAO_ESCALAR_MATRIZ(){
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
     Matriz res = prepMatriz("./src/Resultados/divs.csv");
     float num = 2.0F;
-    opEscalarMatriz(&m,&num,'/');
+    opEscalarMatriz(&m,num,'/');
     mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ",eqMatriz(&m,&res));
     clearMatriz(&m) ; clearMatriz(&res);
     return 0;
