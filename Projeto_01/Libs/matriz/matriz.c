@@ -165,7 +165,7 @@ void printMatriz(Matriz *m) {
     }
 }
 
-void opEscalarMatriz(Matriz *m,float *num,char op){
+void opEscalarMatriz(Matriz *m,float num,char op){
     for (int i = 0; i < m->rows; i++) {
         for (int j = 0; j < m->cols; j++) {
             if( op == '*' ){ m->matriz[i][j] *= (*num); }
