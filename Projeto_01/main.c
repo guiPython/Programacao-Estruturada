@@ -11,7 +11,7 @@ int main(void){
     printf("Bem vindo ao programa!\n");
     while(1){
         erro:
-        printf("Qual tipo de estrutura matematica você quer utilizar? \n-> 1 para matrizes\n-> 2 para vetores\n-> Ou 3 para sair)\n");
+        printf("Qual tipo de estrutura matematica você quer utilizar? \n-> 1 para matrizes\n-> 2 para vetores\n-> Ou 3 para sair\n");
         scanf("%d", &verificador);
         if(verificador == 1){
             Matriz matriz1 = prepMatriz("Source/Matrizes/matriz1.csv");
