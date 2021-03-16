@@ -68,6 +68,7 @@ void printVetor(Vetor v){
     for(int i = 0; i < v.dim; i++){
         printf("%.2f ", v.vetor[i]);
     }
+    printf("\n");
 }
 
 Vetor opeEscVetor(float a, Vetor v, char ope){
