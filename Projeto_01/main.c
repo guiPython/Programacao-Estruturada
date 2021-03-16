@@ -5,6 +5,8 @@
 #include "Libs/matriz/matriz.h"
 #include "Libs/vetor/vetor.h"
 
+extern NallocMatriz, NdeallocMatriz, NallocVetor, NdeallocVetor;
+
 void desejaSalvarMatriz(Matriz* m)
 {
 erroSalvarMatriz:
@@ -80,22 +82,26 @@ int main(void) {
 							matrizResultado = sumMatrizes(matriz1, matriz2);
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 2)
 						{
 							matrizResultado = subtrMatrizes(matriz1, matriz2);
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 3)
 						{
 							matrizResultado = multMatrizes(matriz1, matriz2);
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 4)
 						{
 							clearMatriz(&matriz2);
+							clearMatriz(&matrizResultado);
 							goto erroMatriz;
 						}
 						else
@@ -116,24 +122,28 @@ int main(void) {
 							matrizResultado = opEscalarMatriz(&matriz1, num, '+');
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 2)
 						{
 							matrizResultado = opEscalarMatriz(&matriz1, num, '-');
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 3)
 						{
 							matrizResultado = opEscalarMatriz(&matriz1, num, '*');
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 4)
 						{
 							matrizResultado = opEscalarMatriz(&matriz1, num, '/');
 							printMatriz(&matrizResultado);
 							desejaSalvarMatriz(&matrizResultado);
+							clearMatriz(&matrizResultado);
 						}
 						else if (verificador == 5)
 						{
@@ -193,24 +203,28 @@ int main(void) {
 							vetorResultado = opeEscVetor(num, vetor1, '+');
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 2) 
 						{
 							vetorResultado = opeEscVetor(num, vetor1, '-');
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 3) 
 						{
 							vetorResultado = opeEscVetor(num, vetor1, '*');
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 4) 
 						{
 							vetorResultado = opeEscVetor(num, vetor1, '/');
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 5) 
 						{
@@ -219,6 +233,7 @@ int main(void) {
 						}
 						else 
 						{
+							clearVetor(&vetorResultado);
 							goto erroOperBasicaVetor;
 						}
 					}
@@ -245,6 +260,7 @@ int main(void) {
 							vetorResultado = prodVetVetor(vetor1, vetor2);
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 3) 
 						{
@@ -255,12 +271,14 @@ int main(void) {
 							vetorResultado = sumVetor(vetor1, vetor2);
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 5) 
 						{
 							vetorResultado = subVetor(vetor1, vetor2);
 							printVetor(vetorResultado);
 							desejaSalvarVetor(&vetorResultado);
+							clearVetor(&vetorResultado);
 						}
 						else if (verificador == 6) 
 						{
@@ -270,6 +288,7 @@ int main(void) {
 						}
 						else 
 						{
+							clearVetor(&vetorResultado);
 							goto erroVetorComplexo;
 						}
 					}
@@ -297,5 +316,12 @@ int main(void) {
 		}
 	}
 	printf("Obrigado por usar o programa!\n");
+
+	printf("Alloc Matriz: %i\n", NallocMatriz);
+	printf("Dealloc Matirz: %i\n", NdeallocMatriz);
+	printf("Alloc Vetor: %i\n", NallocVetor);
+	printf("Dealloc Vetor: %i\n", NdeallocVetor);
+
+
 	return 0;
 }

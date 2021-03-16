@@ -5,9 +5,11 @@
 #include "vetor.h"
 #include <math.h>
 
+int NallocVetor = 0, NdeallocVetor = 0;
 
 void allocVetor(Vetor* v) {
     v->vetor = (float*)malloc(v->dim * sizeof(float));
+    NallocVetor++;
 }
 
 
@@ -38,6 +40,7 @@ void loadVetor(Vetor* v, FILE* arq) {
 void clearVetor(Vetor* v) {
     if (v->dim <= 0) return;
     free(v->vetor);
+    NdeallocVetor++;
     v->dim = 0;
 }
 

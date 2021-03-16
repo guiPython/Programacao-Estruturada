@@ -5,11 +5,14 @@
 #include "matriz.h"
 #include "math.h"
 
+int NallocMatriz = 0, NdeallocMatriz = 0;
 
 static void allocMatriz(Matriz* m) {
+    NallocMatriz++;
     m->matriz = (float**)malloc(m->rows * sizeof(float));
     for (int i = 0; i < m->rows; ++i) {
         m->matriz[i] = (float*)malloc(m->cols * sizeof(float));
+        NallocMatriz++;
     }
 }
 
@@ -106,8 +109,10 @@ void clearMatriz(Matriz *m){
     if (m->rows <= 0 || m->cols <= 0) return;
     for( int i = 0 ; i < m->rows ; i++){
         free(m->matriz[i]);
+        NdeallocMatriz++;
     }
     free(m->matriz);
+    NdeallocMatriz++;
     m->rows = 0;
     m->cols = 0;
 }
