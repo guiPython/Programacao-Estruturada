@@ -93,16 +93,16 @@ int main(void){
                         scanf("%d", &verificador);
                         if(verificador == 1){
                             Vetor vetorResultado = opeEscVetor(num, vetor1, '+');
-                            printVetor(vetor1);
+                            printVetor(vetorResultado);
                         }else if(verificador == 2){
                             Vetor vetorResultado = opeEscVetor(num, vetor1, '-');
-                            printVetor(vetor1);
+                            printVetor(vetorResultado);
                         }else if(verificador == 3){
                             Vetor vetorResultado = opeEscVetor(num, vetor1, '*');
-                            printVetor(vetor1);
+                            printVetor(vetorResultado);
                         }else if(verificador == 4){
                             Vetor vetorResultado = opeEscVetor(num, vetor1, '/');
-                            printVetor(vetor1);
+                            printVetor(vetorResultado);
                         }else if(verificador == 5){
                             goto erroVetor;
                         }else{
