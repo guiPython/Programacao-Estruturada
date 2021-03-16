@@ -20,6 +20,7 @@ Matriz criarMatrizIdentidade(int n);
 void clearMatriz(Matriz *m);
 int  eqMatriz(Matriz*,Matriz*);
 void printMatriz(Matriz *m);
+void salvarMatriz(Matriz* m, char* fileName);
 Matriz opEscalarMatriz(Matriz *m, float num, char op);
 Matriz sumMatrizes(Matriz m1, Matriz m2);
 Matriz subtrMatrizes(Matriz m1, Matriz m2);

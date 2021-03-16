@@ -103,10 +103,13 @@ Matriz criarMatrizIdentidade(int n)
 
 
 void clearMatriz(Matriz *m){
+    if (m->rows <= 0 || m->cols <= 0) return;
     for( int i = 0 ; i < m->rows ; i++){
         free(m->matriz[i]);
     }
     free(m->matriz);
+    m->rows = 0;
+    m->cols = 0;
 }
 
 static void reduzirMatriz(Matriz* m, int a, int b, float fator) {
@@ -160,6 +163,24 @@ void printMatriz(Matriz *m) {
     }
 }
 
+void salvarMatriz(Matriz* m, char* fileName)
+{
+    FILE* file = fopen(fileName, "wb");
+    for (int i = 0; i < m->rows; i++)
+    {
+        for (int j = 0; j < m->cols; j++)
+        {
+            if (j == m->cols-1)
+                fprintf(file, "%.3f", m->matriz[i][j]);
+            else
+                fprintf(file, "%.3f;", m->matriz[i][j]);
+        }
+        if (i != m->rows-1)
+            fprintf(file, "\n");
+    }
+    fclose(file);
+}
+
 
 Matriz opEscalarMatriz(Matriz* m, float num, char op){
     Matriz res = criarMatrizDeMesmoTamanho(m);
@@ -176,7 +197,7 @@ Matriz opEscalarMatriz(Matriz* m, float num, char op){
 }
 
 Matriz sumMatrizes(Matriz m1, Matriz m2){
-    if (m1.rows != m2.rows || m1.cols != m2.cols) kill("As Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    if (m1.rows != m2.rows || m1.cols != m2.cols) kill("Erro: As Matrizes M1 e M2 nao tem a mesma dimensao\n");
     else {
         Matriz res = criarMatrizDeMesmoTamanho(&m1);
         for(int i = 0; i < m1.rows; i++) {
@@ -189,7 +210,7 @@ Matriz sumMatrizes(Matriz m1, Matriz m2){
 }
 
 Matriz subtrMatrizes(Matriz m1, Matriz m2){
-    if (m1.rows != m2.rows || m1.cols != m2.cols) kill("As Matrizes M1 e M2 nao tem a mesma dimensao\n");
+    if (m1.rows != m2.rows || m1.cols != m2.cols) kill("Erro: As Matrizes M1 e M2 nao tem a mesma dimensao\n");
     else{
         Matriz res = criarMatrizDeMesmoTamanho(&m1);
         for(int i = 0; i < m1.rows; i++) {
@@ -202,7 +223,7 @@ Matriz subtrMatrizes(Matriz m1, Matriz m2){
 }
 
 Matriz multMatrizes(Matriz m1, Matriz m2){
-    if (m1.cols != m2.rows) kill("Numero de colunas de M1 != Numero de linhas de M2.\n");
+    if (m1.cols != m2.rows) kill("Erro: Numero de colunas de M1 != Numero de linhas de M2.\n");
     else {
         Matriz res = criarMatrizDeTamanho(m1.rows, m2.cols);
         float val;
@@ -218,7 +239,7 @@ Matriz multMatrizes(Matriz m1, Matriz m2){
 }
 
 Matriz inversaMatriz(Matriz* m) {
-    if ((m)->cols != (m)->rows) kill("Erro: A matriz nao eh quadrada\n");
+    if (m->cols != m->rows) kill("Erro: A matriz nao eh quadrada\n");
     Matriz copia = copiarMatriz(m);
     Matriz inversa = criarMatrizIdentidade(m->rows);
     for (int i = 0; i < copia.rows; i++)
@@ -267,6 +288,7 @@ Matriz inversaMatriz(Matriz* m) {
 
 //https://pt.wikipedia.org/wiki/Teorema_de_Laplace
 float detMatrizLaplace(Matriz m){
+    if (m.cols != m.rows) kill("Erro: A matriz nao eh quadrada\n");
     if ( m.cols == 1 ){
         return m.matriz[0][0];
     }

@@ -36,7 +36,22 @@ void loadVetor(Vetor* v, FILE* arq) {
 
 
 void clearVetor(Vetor* v) {
+    if (v->dim <= 0) return;
     free(v->vetor);
+    v->dim = 0;
+}
+
+void salvarVetor(Vetor* v, char* fileName)
+{
+    FILE* file = fopen(fileName, "wb");
+    for (int i = 0; i < v->dim; i++)
+    {
+        if (i == v->dim - 1)
+            fprintf(file, "%.3f", v->vetor[i]);
+        else
+            fprintf(file, "%.3f;", v->vetor[i]);
+    }
+    fclose(file);
 }
 
 Vetor criarVetorMesmoTamanho(Vetor v){
@@ -126,4 +141,26 @@ Vetor prodVetVetor(Vetor a,Vetor b) {
     {
         kill("ERRO");
     }
+}
+
+Vetor sumVetor(Vetor a, Vetor b)
+{
+    if (a.dim != b.dim) kill("Erro: Vetores de tamanhos diferentes");
+    Vetor u = criarVetorMesmoTamanho(a);
+    for (int i = 0; i < a.dim; i++)
+    {
+        u.vetor[i] = a.vetor[i] + b.vetor[i];
+    }
+    return u;
+}
+
+Vetor subVetor(Vetor a, Vetor b)
+{
+    if (a.dim != b.dim) kill("Erro: Vetores de tamanhos diferentes");
+    Vetor u = criarVetorMesmoTamanho(a);
+    for (int i = 0; i < a.dim; i++)
+    {
+        u.vetor[i] = a.vetor[i] - b.vetor[i];
+    }
+    return u;
 }
