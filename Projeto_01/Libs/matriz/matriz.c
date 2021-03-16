@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include "../csv/csv.h"
 #include "matriz.h"
-
+#include "math.h"
 
 
 static void allocMatriz(Matriz* m) {
@@ -142,7 +142,9 @@ int eqMatriz(Matriz *m1,Matriz *m2){
     else {
         for ( int i = 0 ; i < m1->rows ; i++){
             for ( int j = 0 ; j < m1->cols ; j++){
-                if( m1->matriz[i][j] != m2->matriz[i][j] ){ return 0;}
+                if (m1->matriz[i][j] != m2->matriz[i][j]){
+                    return 0;
+                }
             }
         }
         return 1;

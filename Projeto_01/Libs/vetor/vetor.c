@@ -16,7 +16,7 @@ void loadVetor(Vetor* v, FILE* arq) {
     char* token;
     char line[4096];
     while (fgets(line, sizeof(line), arq)) {
-        for (token = strtok(line, ";"); token && token; token = strtok(NULL, ";")) {
+        for (token = strtok(line, ";"); token ; token = strtok(NULL, ";")) {
             i++;
         }
     }
@@ -26,7 +26,7 @@ void loadVetor(Vetor* v, FILE* arq) {
     rewind(arq);
     i = 0;
     while (fgets(line, sizeof(line), arq)) {
-        for (token = strtok(line, ";"); token && token; token = strtok(NULL, ";")) {
+        for (token = strtok(line, ";"); token ; token = strtok(NULL, ";")) {
             v->vetor[i] = atof(token);
             i++;
         }
@@ -109,3 +109,20 @@ float moduloVetor(Vetor a){
     return y;
 }
 
+float angVetores(Vetor a, Vetor b) {
+    return prodEscVetor(a, b) / (moduloVetor(a) * moduloVetor(b));
+}
+
+Vetor prodVetVetor(Vetor a,Vetor b) {
+    if (a.dim == b.dim && a.dim == 3) {
+        Vetor n = criarVetorMesmoTamanho(a);
+        n.vetor[0] = (a.vetor[1] * b.vetor[2]) - (a.vetor[2] * b.vetor[1]);
+        n.vetor[1] = (a.vetor[2] * b.vetor[0]) - (a.vetor[0] * b.vetor[2]);
+        n.vetor[2] = (a.vetor[0] * b.vetor[1]) - (a.vetor[1] * b.vetor[0]);
+        return n;
+    }
+    else
+    {
+        kill("ERRO");
+    }
+}

@@ -17,7 +17,9 @@ void clearVetor(Vetor* v);
 int eqVetor(Vetor a, Vetor b);
 Vetor opeEscVetor(float a, Vetor vetor, char ope);
 float prodEscVetor(Vetor a, Vetor b);
+Vetor prodVetVetor(Vetor a, Vetor b);
 float moduloVetor(Vetor a);
+float angVetores(Vetor a, Vetor b);
 
-#include "vetor.c"
+//#include "vetor.c"
 #endif

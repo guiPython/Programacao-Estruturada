@@ -13,6 +13,7 @@ FILE* getArquivo(char* path) {
 
 void kill(const char* erro)
 {
-    printf("%s", erro); 
+    printf("%s", erro);
     exit(0);
 }
+

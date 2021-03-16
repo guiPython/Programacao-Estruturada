@@ -5,5 +5,4 @@
 FILE* getArquivo(char* path);
 void kill(const char* erro);
 
-#include "csv.c"
 #endif

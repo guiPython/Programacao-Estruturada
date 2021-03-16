@@ -6,7 +6,7 @@
 #include "../Libs/minUnit/minUnit.h"
 
 int tests_run = 0;
-float epsilon = 0.0001F;
+const float epsilon = 0.0001F;
 
 static char* SOMA_ESCALAR_MATRIZ() {
     Matriz m = prepMatriz("./src/Matrizes/matriz_01.csv");
@@ -14,7 +14,9 @@ static char* SOMA_ESCALAR_MATRIZ() {
     float num = 2.0F;
     Matriz m2 = opEscalarMatriz(&m, num, '+');
     mu_assert("ERROR: FALHA NA SOMA DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m2, &res));
-    clearMatriz(&m);  clearMatriz(&m2); clearMatriz(&res);
+    clearMatriz(&m);  
+    clearMatriz(&m2); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -24,7 +26,9 @@ static char* SUBTRACAO_ESCALAR_MATRIZ() {
     float num = 2.0F;
     Matriz m2 = opEscalarMatriz(&m, num, '-');
     mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m2, &res));
-    clearMatriz(&m);  clearMatriz(&m2); clearMatriz(&res);
+    clearMatriz(&m);  
+    clearMatriz(&m2); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -35,7 +39,9 @@ static char* MULTIPLICACAO_ESCALAR_MATRIZ() {
     float num = 2.0F;
     Matriz m2 = opEscalarMatriz(&m, num, '*');
     mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m2, &res));
-    clearMatriz(&m);  clearMatriz(&m2); clearMatriz(&res);
+    clearMatriz(&m);  
+    clearMatriz(&m2); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -45,7 +51,9 @@ static char* DIVISAO_ESCALAR_MATRIZ() {
     float num = 2.0F;
     Matriz m2 = opEscalarMatriz(&m, num, '/');
     mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m2, &res));
-    clearMatriz(&m); clearMatriz(&m2);  clearMatriz(&res);
+    clearMatriz(&m); 
+    clearMatriz(&m2);  
+    clearMatriz(&res);
     return 0;
 }
 
@@ -55,7 +63,10 @@ static char* ADICAO_MATRIZES() {
     Matriz m3 = sumMatrizes(m1, m2);
     Matriz res = prepMatriz("./src/Resultados/Matrizes/mult.csv");
     mu_assert("ERROR: FALHA NA OPERACAO DE SOMA DE MATRIZES", eqMatriz(&m3, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&m3); clearMatriz(&res);
+    clearMatriz(&m1); 
+    clearMatriz(&m2); 
+    clearMatriz(&m3); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -65,7 +76,10 @@ static char* SUBTRACAO_MATRIZES() {
     Matriz m3 = subtrMatrizes(m1, m2);
     Matriz res = prepMatriz("./src/Resultados/Matrizes/subtrM.csv");
     mu_assert("ERROR: FALHA NA OPERACAO DE SUBTRACAO DE MATRIZES", eqMatriz(&m3, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&m3); clearMatriz(&res);
+    clearMatriz(&m1); 
+    clearMatriz(&m2); 
+    clearMatriz(&m3); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -75,7 +89,10 @@ static char* MULTIPLICACAO_MATRIZES() {
     Matriz m3 = multMatrizes(m1, m2);
     Matriz res = prepMatriz("./src/Resultados/Matrizes/multM.csv");
     mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DA MATRIZ", eqMatriz(&m3, &res));
-    clearMatriz(&m1); clearMatriz(&m2); clearMatriz(&m3); clearMatriz(&res);
+    clearMatriz(&m1); 
+    clearMatriz(&m2); 
+    clearMatriz(&m3); 
+    clearMatriz(&res);
     return 0;
 }
 
@@ -97,6 +114,19 @@ static char* DETERMINANTE_MATRIZES_LAPLACE_4X4() {
     return 0;
 }
 
+/*
+static char* INVERSA_MATRIZ() {
+    Matriz m = prepMatriz("./src/Matrizes/matriz_03.csv");
+    Matriz fres = inversaMatriz(&m);
+    Matriz res = prepMatriz("./src/Resultados/Matrizes/invM.csv");
+    mu_assert("ERROR: FALHA NO CALCULO DA MATRIZ INVERSA", eqMatriz(&fres, &res));
+    clearMatriz(&m);
+    clearMatriz(&fres);
+    clearMatriz(&res);
+    return 0;
+}
+*/
+
 static char* SOMA_ESCALAR_VETOR() {
     Vetor v = prepVetor("./src/Vetores/vetor_01.csv");
     float n = 2.0F;
@@ -115,7 +145,9 @@ static char* SUBTRACAO_ESCALAR_VETOR() {
     Vetor u = opeEscVetor(n, v, '-');
     Vetor res = prepVetor("./src/Resultados/Vetores/subtr.csv");
     mu_assert("ERROR: FALHA NA SUBTRACAO DO ESCALAR NOS ELEMENTOS DO VETOR", eqVetor(u, res));
-    clearVetor(&v); clearVetor(&u); clearVetor(&res);
+    clearVetor(&v); 
+    clearVetor(&u); 
+    clearVetor(&res);
     return 0;
 }
 
@@ -125,7 +157,9 @@ static char* MULTIPLICACAO_ESCALAR_VETOR() {
     Vetor u = opeEscVetor(n, v, '*');
     Vetor res = prepVetor("./src/Resultados/Vetores/mult.csv");
     mu_assert("ERROR: FALHA NA MULTIPLICACAO DO ESCALAR NOS ELEMENTOS DO VETOR", eqVetor(u, res));
-    clearVetor(&v); clearVetor(&u); clearVetor(&res);
+    clearVetor(&v); 
+    clearVetor(&u); 
+    clearVetor(&res);
     return 0;
 }
 
@@ -135,7 +169,9 @@ static char* DIVISAO_ESCALAR_VETOR() {
     Vetor u = opeEscVetor(n, v, '/');
     Vetor res = prepVetor("./src/Resultados/Vetores/divs.csv");
     mu_assert("ERROR: FALHA NA DIVISAO DO ESCALAR NOS ELEMENTOS DO VETOR", eqVetor(u, res));
-    clearVetor(&v); clearVetor(&u); clearVetor(&res);
+    clearVetor(&v); 
+    clearVetor(&u); 
+    clearVetor(&res);
     return 0;
 }
 
@@ -152,7 +188,32 @@ static char* PRODUTO_ESCALAR_VETOR() {
     Vetor u = prepVetor("./src/Vetores/vetor_02.csv");
     float fres = prodEscVetor(v, u); float res = 460124.0F;
     mu_assert("ERROR: FALHA NO PRODUTO ESCALAR ENTRE OS VETORES", ((fres - res) < epsilon));
-    clearVetor(&v); clearVetor(&u);
+    clearVetor(&v); 
+    clearVetor(&u);
+    return 0;
+}
+
+static char* PRODUTO_VETORIAL_VETOR() {
+    Vetor v = prepVetor("./src/Vetores/vetor_03.csv");
+    Vetor u = prepVetor("./src/Vetores/vetor_04.csv");
+    Vetor fres = prodVetVetor(v, u);
+    Vetor res = prepVetor("./src/Resultados/Vetores/prodVet.csv");
+    mu_assert("ERROR: FALHA NO PRODUTO VETORIAl ENTRE OS VETORES", eqVetor(fres,res));
+    clearVetor(&v); 
+    clearVetor(&u); 
+    clearVetor(&fres);  
+    clearVetor(&res);
+    return 0;
+}
+
+static char* ANGULO_VETORES() {
+    Vetor v = prepVetor("./src/Vetores/vetor_03.csv");
+    Vetor u = prepVetor("./src/Vetores/vetor_04.csv");
+    float fres = angVetores(v, u);
+    float res = 39.88848F;
+    mu_assert("ERROR: FALHA NO CALCULO DO ANGULO ENTRE OS VETORES", ((fres - res) < epsilon));
+    clearVetor(&v); 
+    clearVetor(&u);
     return 0;
 }
 
@@ -164,12 +225,15 @@ static char* all_tests() {
     mu_run_test(MULTIPLICACAO_MATRIZES);
     mu_run_test(DETERMINANTE_MATRIZES_LAPLACE_3X3);
     mu_run_test(DETERMINANTE_MATRIZES_LAPLACE_4X4);
+    //mu_run_test(INVERSA_MATRIZ);
     mu_run_test(SOMA_ESCALAR_VETOR);
     mu_run_test(SUBTRACAO_ESCALAR_VETOR);
     mu_run_test(MULTIPLICACAO_ESCALAR_VETOR);
     mu_run_test(DIVISAO_ESCALAR_VETOR);
     mu_run_test(MODULO_VETOR);
     mu_run_test(PRODUTO_ESCALAR_VETOR);
+    mu_run_test(PRODUTO_VETORIAL_VETOR);
+    mu_run_test(ANGULO_VETORES);
     return 0;
 }
 
