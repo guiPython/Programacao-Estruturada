@@ -6,6 +6,7 @@
 #include <math.h>
 
 int NallocVetor = 0, NdeallocVetor = 0;
+const double PI = 3.1415926;
 
 void allocVetor(Vetor* v) {
     v->vetor = (float*)malloc(v->dim * sizeof(float));
@@ -129,7 +130,7 @@ float moduloVetor(Vetor a){
 }
 
 float angVetores(Vetor a, Vetor b) {
-    return prodEscVetor(a, b) / (moduloVetor(a) * moduloVetor(b));
+    return acos(prodEscVetor(a, b) / (moduloVetor(a) * moduloVetor(b)))*180/PI;
 }
 
 Vetor prodVetVetor(Vetor a,Vetor b) {
