@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "../Csv/csv.h"
 
 double DistanciaCobraComida(Game* game)
 {
@@ -113,11 +114,12 @@ void CobraCome(Game* game)
 	}
 }
 
-void CobraMorte(Game* game)
+void CobraMorte(Game* game, FILE* file)
 {
 	if (CobraColisao(*game))
 	{
 		Init(game);
+		verificaScore(file,game->dificuldade,game->pontos,game->nomeJogador);
 		printf("\n| PRESTA ATENÇÃO NA PAREDE | --- | VACILÃO |\n");
 	}
 	for (int i = 0; i < game->cobra.tamanho; i++)
@@ -126,6 +128,7 @@ void CobraMorte(Game* game)
 		if (d < 1)
 		{
 			Init(game);
+			verificaScore(file, game->dificuldade, game->pontos, game->nomeJogador);
 			printf("\n| PRESTA ATENÇÃO | --- | VACILÃO |\n");
 		}
 	}

@@ -6,8 +6,8 @@
 #include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../Csv/csv.h"
 
-//TODO MAINMENU , MENU status 0 , 1 ou 2;
 
 double GameBonus(Game* game) {
 	int i = 0; double bonus = 0;
@@ -27,6 +27,7 @@ void setupGame(Game* game) {
 	game->scores = false;
 	game->bonus = 1;
 	game->status = true;
+	game->pontos = 0;
 }
 
 void Init(Game* game) {
@@ -39,6 +40,8 @@ void InfoGame(Game* game, char* str) {
 	int pontosBruto = (int)(CobraTamanho(game));
 	int pontos = pontosBruto % 2 == 0 ? pontosBruto : pontosBruto - 1;
 	double bonus = GameBonus(game);
+
+	game->pontos = pontos;
 
 	char nome[12] = " ";
 	int i = 0;
@@ -113,6 +116,48 @@ void RenderMenuGame(SDL_Renderer* renderer, char menu[][20], int aux) {
 	TTF_CloseFont(Font);
 }
 
+void RenderScores(SDL_Renderer* renderer, FILE* file) {
+	char linha[1000];
+	char* aux;
+
+	TTF_Font* Font = TTF_OpenFont("fonts/VT323-Regular.ttf", 60);
+
+	if (!Font) printf("Falha ao carregar a fonte: %s \nSDL2_ttf Error: %s\n", "fonts/VT323-Regular.ttf", TTF_GetError());
+
+	SDL_Color White = { 255, 255, 255 };
+
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Font, "SNAKE GAME SCORES", White);
+
+	SDL_Rect MessageRect;
+	MessageRect.w = surfaceMessage->w;
+	MessageRect.h = surfaceMessage->h;
+	MessageRect.x = 200;
+	MessageRect.y = 150;
+
+	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+	SDL_RenderCopy(renderer, Message, NULL, &MessageRect);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
+	
+	while (fgets(linha, sizeof(linha), file)) {
+		surfaceMessage = TTF_RenderText_Solid(Font,linha, White);
+		Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		MessageRect.y += 100;
+		SDL_RenderCopy(renderer, Message, NULL, &MessageRect);
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(Message);
+	}
+
+	MessageRect.y += 100;
+	surfaceMessage = TTF_RenderText_Solid(Font, "1- VOLTAR    2- SAIR", White);
+	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	SDL_RenderCopy(renderer, Message, NULL, &MessageRect);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
+
+	TTF_CloseFont(Font);
+}
 
 void RenderParede(SDL_Renderer* renderer) {
 	int xMin = 30, yMin = 100, xMax = 700, yMax = 730;
@@ -196,6 +241,8 @@ void RenderJogador(Game* game, SDL_Renderer* renderer, char menu[][100], int aux
 	TTF_CloseFont(Font);
 }
 
+
+
 void RunMainMenu(Game* game, SDL_Renderer* renderer) {
 	TTF_Init();
 	SDL_Event event;
@@ -208,7 +255,7 @@ void RunMainMenu(Game* game, SDL_Renderer* renderer) {
 
 		RenderMenuGame(renderer, mm, 3);
 
-		SDL_RenderPresent(renderer); // Baseado nas alterações do renderizador modifica a tela
+		SDL_RenderPresent(renderer);
 
 		while (SDL_PollEvent(&event)) {
 
@@ -220,7 +267,11 @@ void RunMainMenu(Game* game, SDL_Renderer* renderer) {
 				break;
 			}
 
-			if (state[SDL_SCANCODE_2])  game->scores = true;
+			if (state[SDL_SCANCODE_2]) {
+				game->scores = true;
+				game->mainMenu = false;
+				break;
+			}
 
 			if (state[SDL_SCANCODE_3] || event.type == SDL_QUIT) {
 				game->mainMenu = false;
@@ -228,8 +279,42 @@ void RunMainMenu(Game* game, SDL_Renderer* renderer) {
 				break;
 			}
 		}
-		SDL_Delay(70);
+		SDL_Delay(100);
 	}
+}
+
+void RunScore(Game* game, SDL_Renderer* renderer, FILE* file) {
+	TTF_Init();
+	SDL_Event event;	
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+
+	RenderScores(renderer, file);
+
+	SDL_RenderPresent(renderer);
+
+	while (game->scores) {
+
+		while (SDL_PollEvent(&event)) {
+
+			const Uint8* state = SDL_GetKeyboardState(NULL); 
+
+			if (state[SDL_SCANCODE_1]) {
+				game->mainMenu = true;
+				game->scores = false;
+				break;
+			}
+
+			if (event.type == SDL_QUIT || state[SDL_SCANCODE_2]) {
+				game->status = false;
+				game->scores = false;
+				break;
+			}
+		}
+		SDL_Delay(100);
+	}
+
 }
 
 void RunDifMenu(Game* game, SDL_Renderer* renderer) {
@@ -253,6 +338,7 @@ void RunDifMenu(Game* game, SDL_Renderer* renderer) {
 			if (state[SDL_SCANCODE_1]) {
 				game->cobra.velocidade = 10;
 				game->tolerancia = 20;
+				game->dificuldade = 1;
 				game->difMenu = false;
 				game->jogador = true;
 				break;
@@ -261,6 +347,7 @@ void RunDifMenu(Game* game, SDL_Renderer* renderer) {
 			if (state[SDL_SCANCODE_2]) {
 				game->cobra.velocidade = 15;
 				game->tolerancia = 15;
+				game->dificuldade = 2;
 				game->difMenu = false;
 				game->jogador = true;
 				break;
@@ -269,6 +356,7 @@ void RunDifMenu(Game* game, SDL_Renderer* renderer) {
 			if (state[SDL_SCANCODE_3]) {
 				game->cobra.velocidade = 18;
 				game->tolerancia = 14;
+				game->dificuldade = 3;
 				game->difMenu = false;
 				game->jogador = true;
 				break;
@@ -352,7 +440,7 @@ void RunJogador(Game* game, SDL_Renderer* renderer) {
 				}
 			}
 
-			if(i < 11){
+			if(i < 3){
 				if (event.key.state == SDL_PRESSED && !state[SDL_SCANCODE_BACKSPACE] && !state[SDL_SCANCODE_1] && !state[SDL_SCANCODE_2] && !state[SDL_SCANCODE_3]) {
 					adicionar(&game->nomeJogador, SDL_GetKeyName(event.key.keysym.sym)[0]);
 					i++;
@@ -370,7 +458,7 @@ void RunJogador(Game* game, SDL_Renderer* renderer) {
 	
 }
 
-void RunGame(Game* game, SDL_Renderer* renderer) 
+void RunGame(Game* game, SDL_Renderer* renderer, FILE* file) 
 {
 	TTF_Init();
 	SDL_Event event;
@@ -379,7 +467,7 @@ void RunGame(Game* game, SDL_Renderer* renderer)
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		CobraMorte(game); // Verifica se a cobra morreu
+		CobraMorte(game, file); // Verifica se a cobra morreu
 
 		CobraCome(game); // Verifica se a cobra comeu
 

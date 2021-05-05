@@ -7,9 +7,6 @@
 #include <SDL.h>
 #include "game.h"
 
-
-void setupComida(Comida* comida);
-
 void ComidaAtualizacao(Game* game,SDL_Renderer* renderer);
 
 void ComidaSetPosicao(Comida* comida);

@@ -17,7 +17,7 @@ int CobraTamanho(Game* game);
 
 bool CobraColisao(Game game);
 
-void CobraMorte(Game* game);
+void CobraMorte(Game* game, FILE* file);
 
 void CobraCome(Game* game);
 

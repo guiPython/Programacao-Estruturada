@@ -7,6 +7,7 @@
 #include "Libs/SnakeGame/game.h"
 #include <stdbool.h>
 #include <locale.h> 
+#include "Libs/Csv/csv.h"
 
 //TODO Menu de resoluções
 
@@ -17,6 +18,9 @@ int main(void) {
 
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	FILE* file;
+
+	file = fopen("./Libs/Files/score.csv","r");
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		return 0;
@@ -41,9 +45,10 @@ int main(void) {
 
 	while (game.status) {
 		if (game.mainMenu) RunMainMenu(&game, renderer);
+		if (game.scores) RunScore(&game, renderer, file);
 		if (game.difMenu) RunDifMenu(&game, renderer);
 		if (game.jogador) RunJogador(&game, renderer);
-		if (game.partida) RunGame(&game, renderer);
+		if (game.partida) RunGame(&game, renderer, file);
 		if (game.auxMenu) RunAuxMenu(&game, renderer);
 	}
 

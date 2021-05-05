@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libs\Csv\csv.c" />
     <ClCompile Include="Libs\List\list.c" />
     <ClCompile Include="Libs\SnakeGame\food.c" />
     <ClCompile Include="Libs\SnakeGame\game.c" />
@@ -150,6 +151,7 @@
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libs\Csv\csv.h" />
     <ClInclude Include="Libs\List\list.h" />
     <ClInclude Include="Libs\SnakeGame\food.h" />
     <ClInclude Include="Libs\SnakeGame\game.h" />
@@ -157,6 +159,11 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\VT323-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Libs\Files\score.csv">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

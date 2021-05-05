@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 #include "../List/list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
 	int x, y;
@@ -45,6 +47,8 @@ typedef struct {
 	bool auxMenu;
 	bool scores;
 	Item* nomeJogador;
+	int dificuldade;
+	int pontos;
 	double bonus;
 	int tolerancia;
 }Game;
@@ -65,13 +69,17 @@ void RunMainMenu(Game* game, SDL_Renderer* renderer);
 
 void RunDifMenu(Game* game, SDL_Renderer* renderer);
 
+void RenderScores(SDL_Renderer* renderer, FILE* file);
+
+void RunScore(Game* game, SDL_Renderer* renderer, FILE* file);
+
 void RenderJogador(Game* game, SDL_Renderer* renderer, char arr[][100], int aux, bool pipe);
 
 void RunJogador(Game* game, SDL_Renderer* renderer);
 
 void RenderParede(SDL_Renderer* renderer);
 
-void RunGame(Game* game, SDL_Renderer* renderer);
+void RunGame(Game* game, SDL_Renderer* renderer, FILE* file);
 
 void RunAuxMenu(Game* game, SDL_Renderer* renderer);
 

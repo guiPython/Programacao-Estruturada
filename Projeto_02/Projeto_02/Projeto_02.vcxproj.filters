@@ -30,6 +30,9 @@
     <ClCompile Include="Libs\List\list.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="Libs\Csv\csv.c">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libs\SnakeGame\snake.h">
@@ -44,8 +47,14 @@
     <ClInclude Include="Libs\List\list.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="Libs\Csv\csv.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\VT323-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Libs\Files\score.csv" />
   </ItemGroup>
 </Project>

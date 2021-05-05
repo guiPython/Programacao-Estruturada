@@ -1,2 +1,20 @@
-﻿  snake.c
+﻿  food.c
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\food.c(11,18): warning C4244: 'função': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  game.c
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(51,35): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(52,45): warning C4133: '=': tipos incompatíveis - de 'Item *' para 'Item *'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(121,8): warning C4101: 'aux': variável local não referenciada
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(209,35): warning C4047: '=': 'char' difere em níveis de indireção de 'char *'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(210,45): warning C4133: '=': tipos incompatíveis - de 'Item *' para 'Item *'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(445,34): warning C4133: 'função': tipos incompatíveis - de 'Item **' para 'Item **'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(445,75): warning C4047: 'função': 'char *' difere em níveis de indireção de 'const char'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\game.c(445,72): warning C4024: 'adicionar': tipos diferentes para parâmetro formal e real 2
+  snake.c
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\snake.c(122,70): warning C4133: 'função': tipos incompatíveis - de 'Item *' para 'char *'
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Libs\SnakeGame\snake.c(131,74): warning C4133: 'função': tipos incompatíveis - de 'Item *' para 'char *'
+  main.c
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\main.c(15,16): warning C4026: função declarada com lista de parâmetros formais
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\main.c(43,12): warning C4101: 'event': variável local não referenciada
+  Gerando Código...
+C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\main.c(61): warning C4715: 'SDL_main': nem todos os caminhos de controle retornam um valor
   Projeto_02.vcxproj -> C:\Users\guiPy\Desktop\Programação Estruturada\Projeto_02\Projeto_02\Debug\Projeto_02.exe
