@@ -59,29 +59,57 @@ void Print(Lista list)
     }
 }
 
-void loadList(Lista *list, int aux)
+void loadList(Lista *list)
 {
     int element;
-    for (int i = 0; i < aux; i++)
+    for (int i = 0; i < 5; i++)
     {
         scanf("%d", &element);
         insert(list, element);
     }
 }
 
+void swap(int *a, int *b)
+{
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+}
+
+int findElement(Lista *list, int element)
+{
+    for (int i = 0; i < list->qtd; i++)
+    {
+        if (list->num[i] == element)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void changePositionElements(Lista *list, int e1, int e2)
+{
+    int index1, index2;
+    index1 = findElement(list, e1);
+    index2 = findElement(list, e2);
+
+    if (index1 != -1 && index2 != -1)
+    {
+        swap(&list->num[index1], &list->num[index2]);
+    }
+}
+
 void main(void)
 {
-    int aux;
-    scanf("%d", &aux);
 
-    Lista *l1 = create();
-    Lista *l2 = create();
+    Lista *list = create();
 
-    loadList(l1, aux);
+    loadList(list);
 
-    scanf("%d", &aux);
+    int e1, e2;
+    scanf("%d\n%d", &e1, &e2);
 
-    loadList(l2, aux);
-
-    Print(*concat(l1, l2));
+    changePositionElements(list, e1, e2);
+    Print(*list);
 }
